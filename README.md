@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# Task manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small, self-contained task management application built with **React and TypeScript**.
 
-Currently, two official plugins are available:
+This project was created as a **practice exercise in React fundamentals and typed state management**, with a focus on clean component structure, predictable data flow, and persistent client-side storage — without external state libraries or UI frameworks.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
 
-## React Compiler
+- Add new tasks
+- Mark tasks as completed or active
+- Delete tasks
+- Filter tasks by:
+  - **All**
+  - **Active**
+  - **Completed**
+- Automatic localStorage persistence
+- Derived filtering logic based on active tab
+- Accessible form controls and status feedback
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Vite
+- CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+No state libraries, UI frameworks, or external data libraries were used.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Engineering Focus
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+This project intentionally focuses on React fundamentals rather than feature depth:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Component composition and separation of concerns
+- Typed props and state (no `any`)
+- Lifting and centralizing state
+- Derived state via filtering
+- Controlled inputs
+- Side-effect management with `useEffect`
+- Local storage synchronization
+- Avoiding unnecessary re-renders
+- Clean data flow from parent to child components
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Implementation Overview
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- All task state is managed through a custom `useTasks` hook.
+- Filtering is derived from `tasks` and `activeTab`, not stored separately.
+- localStorage persistence is handled via a `useEffect` side effect.
+- UI components are split by responsibility:
+  - Form
+  - Tabs
+  - Task list
+  - Individual task item
+  - Summary
+- No global state or external abstractions are used.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Accessibility Notes
+
+- Proper `<label>` usage for inputs
+- Keyboard-accessible buttons and filters
+- Clear status messaging for empty task states
+- ARIA attributes used minimally and intentionally
+- No unnecessary screen reader announcements
+
+## Scope Decisions
+
+The following features were intentionally omitted to keep the project focused:
+
+- Drag-and-drop reordering
+- Editing tasks inline
+- Due dates or categories
+- Authentication or multi-user support
+- Backend or database integration
+
+## Live Demo
+
+https://rastislavelias.github.io/task-manager
+
+## Author
+
+**Rastislav Elias**  
+https://rastislavelias.com
